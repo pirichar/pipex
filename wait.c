@@ -15,7 +15,7 @@
 	Wait says stop the execution untill the child process is done
 	Wait for a child process to print its numbers
 	then print your numbers
-	
+	https://man7.org/linux/man-pages/man2/wait.2.html
 */
 
 int main (int argc, char **argv)

@@ -4,10 +4,11 @@
 #include <unistd.h>
 #include <errno.h>
 #include <sys/wait.h>
+#include <fcntl.h>
 
 /*
 	https://www.youtube.com/watch?v=5fnVr-zH-SE&list=PLfqABt5AS4FkW5mOn2Tn9ZZLLDwA3kZUY&index=14	https://www.youtube.com/watch?v=DiNmwwQWl0g&list=PLfqABt5AS4FkW5mOn2Tn9ZZLLDwA3kZUY&index=12
-	
+	int this I add an int file which I send open to
 */
 
 int main(int argc, char **argv, char **envp)
@@ -16,6 +17,7 @@ int main(int argc, char **argv, char **envp)
 	int err;
 	int wstatus;
 	int status_code;
+	int file;
 	char *vec[] = {"/sbin/ping", "-c", "3", "google.com", NULL};
 	
 
@@ -26,6 +28,11 @@ int main(int argc, char **argv, char **envp)
 	//Child process
 	if(pid == 0) 
 	{
+		//here I use open to give the fd of the file to the in
+		file = open("pingResult.txt", O_WRONLY | O_CREAT, 0777);
+		if (file == -1)
+			return (2);
+
 		//here we use the fact that execve
 		//return -1 if it does not find the command
 		//lets say i typed pingr instead of ping
