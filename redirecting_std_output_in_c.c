@@ -37,7 +37,7 @@ int main(int argc, char **argv, char **envp)
 	int status_code;
 	int file;
 	int file2;
-	char *vec[] = {"/bin/ping", "-c", "3", "google.com", NULL};
+	char *vec[] = {"/sbin/ping", "-c", "3", "google.com", NULL};
 	
 
 	pid = fork();
@@ -66,7 +66,7 @@ int main(int argc, char **argv, char **envp)
 		//here we use the fact that execve
 		//return -1 if it does not find the command
 		//lets say i typed pingr instead of ping
-		err = execve("/bin/ping", vec, envp);
+		err = execve("/sbin/ping", vec, envp);
 		if (err == -1)
 		{
 			printf("Could not find program to execute\n");
