@@ -109,14 +109,52 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	return (count);
 }
 
+int ft_strlen(const char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strjoin(const char *s1, const char *s2)
+{
+	char	*str;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (str == NULL)
+		return (NULL);
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+	{
+		str[i] = s2[j];
+		i++;
+		j++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
 void	print_strarr(char **str)
 {
 	int i;
-	int j;
+	i = 0;
 
 	while (str[i])
 	{
-		printf("%s", str[i]);
+		printf("%d = %s", i, str[i]);
 		printf("\n");
 		i++;
 	}
@@ -139,18 +177,18 @@ char **env_to_strarr(char **param)
 	char *tmp;
 	char **p_arr;
 
-	path = malloc(sizeof(char) * 500);
+	//here I should probably look for the strlen of the path and malloc that instead
+	path = malloc(sizeof(char) * 1000);
 	i = 0;
 	while(param[i])
 	{
 		if (ft_strncmp(param[i], "PATH=", 5) == 0)
 		{
-			ft_strlcpy(path, param[i],500);
+			ft_strlcpy(path, param[i],1000);
 			tmp = path;
 			while(*path != '/')
 				(*path)++;
-			p_arr = ft_split(path, ':');
-			print_strarr(p_arr);
+			p_arr = ft_split(path + 5, ':');
 		}
 			i++;
 	}
@@ -171,7 +209,22 @@ int main(int argc, char **argv, char **env)
 
 	p_arr = env_to_strarr(env);
 	print_strarr(p_arr);
-	execve("/sbin/ping",vec, p_arr);
+	// printf("==================================================================================\n");
+	// print_strarr(env);
+	// printf("==================================================================================\n");
+	
+	int i = 0;
+	//do i use strjoin to join the name of my command to my 
+	while(p_arr[i])
+	{
+		char *line = ft_strjoin(p_arr[i], "/ping");
+		// printf("This is line %s for the turn %d\n", line , i);
+		 if (access(line, X_OK) == 0)
+				 printf("We found the command at the string i %d\n", i);
+		free(line);
+		i++;
+	}
+	// execve("/sbin/ping",vec, p_arr);
 	strarr_free(p_arr);
 	return (0);
 }
