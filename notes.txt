@@ -1,0 +1,11 @@
+1- Parser mon input et vérifier combiend de commande
+2- Faire une loop qui pipe et fork et VÉRIFIER APRÈS si ça existe
+3- Premier loop est différent et le dernier est différent
+4- 1er fonction à part genre dup2 fichier stdin 
+5- Le main process n'exécute jamais rien; 
+
+
+
+1- FAIRE UN WHILE SUR MON TABLEAU DE STRNIG OPEN fichier Pipe Fork; Enregisterr le PID dans un tableau ; 
+	1- If (PID == 0)A vue que le main ne doit rien faire faire un dup2 pour que le fichier devienne le STDIN dup2(fd,0) dup2(pipe[1],1);
+		Créer une fonction qui prend prend 2 fd et qui prend la cmd + 2 fd (in and out);

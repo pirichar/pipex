@@ -200,7 +200,6 @@ char **env_to_strarr(char **param)
 	int i;
 	int len;
 	char *path;
-	char *tmp;
 	char **p_arr;
 
 	len = strlen_path(param);
@@ -211,14 +210,11 @@ char **env_to_strarr(char **param)
 		if (ft_strncmp(param[i], "PATH=", 5) == 0)
 		{
 			ft_strlcpy(path, param[i], len);
-			tmp = path;
-			while(*path != '/')
-				(*path)++;
 			p_arr = ft_split(path + 5, ':');
 		}
 			i++;
 	}
-	free (tmp);
+	free (path);
 	return (p_arr);
 }
 
@@ -244,6 +240,7 @@ int main(int argc, char **argv, char **env)
 {
 	char **p_arr;
 	int i;
+	int pid;
 
 	if (argc > 1)
 	{
