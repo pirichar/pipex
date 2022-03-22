@@ -66,14 +66,25 @@ int main(int argc, char** argv)
 {
 	//malloc argc * sizeof(int) idéalement
 	int pids[1024];
+	int file;
+	int fd;
+	int outfile;
+	int status;
 
 	//------FROM HERE ITS ALL IN MY CHLD PROCESS I DO NOTHING OTHERWISE-----//
-	// for the first program we firstly open the first fd and put it into file
+	
+	// 						FOR THE FIRST EXEC 
+	// we firstly open the first fd and put it into file
 	// we then pass file to execute, with the command in the argv[2]
 	// execute receives as well all the pids
-	int file = open(argv[1], O_RDONLY); //protect your open you dumb fuck
-	int fd = execute(argv[2], file, &pids[0], 0);
-	//for everything in the middle
+	file = open(argv[1], O_RDONLY); //protect your open you dumb fuck
+	if (file == -1)
+	{
+		printf("could not open input file\n");
+					return (1);
+	}
+	fd = execute(argv[2], file, &pids[0], 0);
+	//						FOR EVERY EXEC IN THE MIDDLE
 	//I start from 3 since my argv[0] is program , argv[1] is the file
 	//and argv[2] is my first program I hard coded before
 	//I will loop t'il i'm dne with all my arguments but the last (argc - 1)
@@ -81,16 +92,22 @@ int main(int argc, char** argv)
 	{
 		fd = execute(argv[i], fd, &pids[i - 2], 0);
 	}
-	//for the last command we open the outfile
-	int outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	//						FOR THE LAST EXEC
+	outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	if (outfile == -1)
+	{
+		printf("could not open output file\n");
+					return (1);
+	}
 	execute(argv[argc - 2], fd, &pids[argc - 2], outfile);
 
 	//------FROM HERE WE ARE IN THE MAIN PROCESS-----//
+	//Here I mostly just wait t'ill all of my PID ARE DONE
 	for (int i = 0; i < 4; ++i) 
 	{
-		int status;
 		waitpid(pids[i], &status, 0);
 	}
 	close(file);
 	close(outfile);
+	printf("Done with the operation\n");
 }
