@@ -2,6 +2,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+/*
+	To use this program just ./a.out + / + the name of the exec you are looking for
+	example : ./a.out /ping
+*/
+
 int	ft_w_counts(const char *s, char c)
 {
 	int	i;
@@ -170,21 +175,40 @@ void	strarr_free(char **arr)
 	free(arr);
 }
 
+int	strlen_path(char **env)
+{
+	int i;
+	int rtn;
+
+	i = 0;
+	while(env[i])
+	{
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
+		{
+			rtn = ft_strlen(env[i]);
+			return (rtn);
+		}
+		i++;
+	}
+	return (1);
+}
+
 char **env_to_strarr(char **param)
 {
 	int i;
+	int len;
 	char *path;
 	char *tmp;
 	char **p_arr;
 
-	//here I should probably look for the strlen of the path and malloc that instead
-	path = malloc(sizeof(char) * 1000);
+	len = strlen_path(param);
+	path = malloc(sizeof(char) * len);
 	i = 0;
 	while(param[i])
 	{
 		if (ft_strncmp(param[i], "PATH=", 5) == 0)
 		{
-			ft_strlcpy(path, param[i],1000);
+			ft_strlcpy(path, param[i], len);
 			tmp = path;
 			while(*path != '/')
 				(*path)++;
@@ -199,32 +223,32 @@ char **env_to_strarr(char **param)
 int main(int argc, char **argv, char **env)
 {
 	char **p_arr;
-	char *vec[100];
+	char *line;
+	int i;
 
-	vec[0] = "/sbin/ping";
-	vec[1] = "google.com";
-	vec[2] = "-c";
-	vec[3] = "3";
- 	vec[4] = NULL;
-
-	p_arr = env_to_strarr(env);
-	print_strarr(p_arr);
-	// printf("==================================================================================\n");
-	// print_strarr(env);
-	// printf("==================================================================================\n");
-	
-	int i = 0;
-	//do i use strjoin to join the name of my command to my 
-	while(p_arr[i])
+	if (argc > 1)
 	{
-		char *line = ft_strjoin(p_arr[i], "/ping");
-		// printf("This is line %s for the turn %d\n", line , i);
-		 if (access(line, X_OK) == 0)
-				 printf("We found the command at the string i %d\n", i);
-		free(line);
-		i++;
+		p_arr = env_to_strarr(env);
+		print_strarr(p_arr);
+		i = 0;
+		while(p_arr[i])
+		{
+			line = ft_strjoin(p_arr[i], argv[1]);
+			if (access(line, X_OK) == 0)
+			{
+					printf("We found the command at the string i %d\n", i);
+					free(line);
+					strarr_free(p_arr);
+					return (0);
+			}
+			free(line);
+			i++;
+		}
+		if (p_arr[i] == NULL)
+			printf("We did not found the program your were looking for\n");
+		strarr_free(p_arr);
+		return (0);
 	}
-	// execve("/sbin/ping",vec, p_arr);
-	strarr_free(p_arr);
-	return (0);
+	else
+		printf("Usage = ./a.out \"/name of the program to search\"");
 }
