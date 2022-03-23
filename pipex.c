@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 14:58:15 by pirichar          #+#    #+#             */
-/*   Updated: 2022/03/23 15:18:28 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/03/23 15:29:47 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	parse_and_exec_cmd(const char *cmd, char **env)
 int execute(const char* cmd, int in, int* p, int out, char **env) 
 {
 	int pipes[2] = {};
-
+	// printf("THIS IS CMD IN EXECUTE = %s\n", cmd);
 	if (out == 0)
 		pipe(pipes);
 	int pid = fork();
@@ -101,7 +101,6 @@ int main(int argc, char** argv, char **env)
 	process_count = argc -3;
 	pids = malloc(sizeof(int) * process_count);
 	i = 0;
-	j = 3;
 	//Opening the in_file which is the argv1
 	file = open(argv[1], O_RDONLY);
 	if (file == -1)
@@ -113,9 +112,10 @@ int main(int argc, char** argv, char **env)
 	//executing the first command 
 	fd = execute(argv[2], file, &pids[0], 0, env);
 	//executing the middle commands
+	j = 3;
 	while (j < argc - 2) 
 	{
-		fd = execute(argv[i], fd, &pids[i - 2], 0, env);
+		fd = execute(argv[j], fd, &pids[j - 2], 0, env);
 		j++;
 	}
 	//opening the outfile
