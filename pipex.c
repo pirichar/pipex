@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 14:58:15 by pirichar          #+#    #+#             */
-/*   Updated: 2022/03/23 15:29:47 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/03/23 16:03:25 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,11 @@ void	parse_and_exec_cmd(const char *cmd, char **env)
 		char *with_slash;
 		char **final_cmd;
 		char **cmd_split;
-
 		int i;
 
 		path = path_to_strarr(env);
 		with_slash = ft_strjoin("/", cmd);
 		cmd_split = ft_split(cmd, ' ');
-
 		i = 0;
 		while(path[i])
 		{
@@ -58,7 +56,7 @@ void	parse_and_exec_cmd(const char *cmd, char **env)
 }
 
 
-int execute(const char* cmd, int in, int* p, int out, char **env) 
+int execute(const char *cmd, int in, int *p, int out, char **env) 
 {
 	int pipes[2] = {};
 	// printf("THIS IS CMD IN EXECUTE = %s\n", cmd);
@@ -87,30 +85,12 @@ int execute(const char* cmd, int in, int* p, int out, char **env)
 	return (pipes[0]);
 }
 
-int main(int argc, char** argv, char **env) 
-{
-	int *pids;
-	int file;
+int	clean_the_main(int argc, char **argv, char **env, t_files files, int *pids)
+{	
 	int fd;
-	int outfile;
-	int status;
-	int process_count;
-	int i;
 	int j;
 
-	process_count = argc -3;
-	pids = malloc(sizeof(int) * process_count);
-	i = 0;
-	//Opening the in_file which is the argv1
-	file = open(argv[1], O_RDONLY);
-	if (file == -1)
-	{
-		printf("could not open input file\n");
-		return (1);
-	}
-	// -----------I SHOULD SEPERATE ALL THIS PART-----------//
-	//executing the first command 
-	fd = execute(argv[2], file, &pids[0], 0, env);
+	fd = execute(argv[2], files.file, &pids[0], 0, env);
 	//executing the middle commands
 	j = 3;
 	while (j < argc - 2) 
@@ -119,22 +99,66 @@ int main(int argc, char** argv, char **env)
 		j++;
 	}
 	//opening the outfile
-	outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0777);
-	if (outfile == -1)
+	files.outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	if (files.outfile == -1)
 	{
 		printf("could not open output file\n");
-					return (1);
+		return (1);
 	}
 	//executing the last command
-	execute(argv[argc - 2], fd, &pids[argc - 2], outfile, env);
-	// -----------I SHOULD SEPERATE ALL THIS PART UNTILL HERE-----------//
+	execute(argv[argc - 2], fd, &pids[argc - 2], files.outfile, env);
+	return (0);
+}
 
+int main(int argc, char** argv, char **env) 
+{
+	int *pids;
+	// int file;
+	// int fd;
+	// int outfile;
+	int status;
+	int process_count;
+	int i;
+	// int j;
+	t_files files;
+
+	process_count = argc -3;
+	pids = malloc(sizeof(int) * process_count);
+	i = 0;
+	files.file = open(argv[1], O_RDONLY);
+	if (files.file == -1)
+	{
+		printf("could not open input file\n");
+		return (1);
+	}
+	// // -----------I SHOULD SEPERATE ALL THIS PART-----------//
+	// //executing the first command 
+	// fd = execute(argv[2], file, &pids[0], 0, env);
+	// //executing the middle commands
+	// j = 3;
+	// while (j < argc - 2) 
+	// {
+	// 	fd = execute(argv[j], fd, &pids[j - 2], 0, env);
+	// 	j++;
+	// }
+	// //opening the outfile
+	// outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	// if (outfile == -1)
+	// {
+	// 	printf("could not open output file\n");
+	// 	return (1);
+	// }
+	// //executing the last command
+	// execute(argv[argc - 2], fd, &pids[argc - 2], outfile, env);
+	// // -----------I SHOULD SEPERATE ALL THIS PART UNTILL HERE-----------//
+	if (clean_the_main(argc, argv, env, files, pids) == 1)
+		return (1);
 	while (i < process_count) 
 	{
 		waitpid(pids[i], &status, 0);
 		i++;
 	}
-	close(file);
-	close(outfile);
+	close(files.file);
+	close(files.outfile);
 	free(pids);
 }

@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 12:47:29 by pirichar          #+#    #+#             */
-/*   Updated: 2022/03/23 14:47:47 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/03/23 15:59:35 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@
 #include <stdbool.h>
 #include "colors.h"
 
-
+typedef struct s_files
+{
+	char file;
+	char outfile;
+}				t_files;
 
 bool	search_argv1(const char *p_arr, const char *argv1);
 char 	**path_to_strarr(char **param);
