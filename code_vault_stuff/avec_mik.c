@@ -65,13 +65,21 @@ int execute(const char* cmd, int in, int* p, int out) {
 
 int main(int argc, char** argv) 
 {
+<<<<<<< HEAD:code_vault_stuff/avec_mik.c
 	int *pids;
+=======
+	//malloc argc * sizeof(int) idéalement
+	int pids[1024];
+>>>>>>> 222895a76c9b0a5cbcae510fcb559a59a4d957da:avec_mik.c
 	int file;
 	int fd;
 	int outfile;
 	int status;
+<<<<<<< HEAD:code_vault_stuff/avec_mik.c
 	int process_count;
 	int i;
+=======
+>>>>>>> 222895a76c9b0a5cbcae510fcb559a59a4d957da:avec_mik.c
 
 	process_count = argc -3;
 	pids = malloc(sizeof(int) * process_count);
@@ -83,11 +91,19 @@ int main(int argc, char** argv)
 	// we then pass file to execute, with the command in the argv[2]
 	// execute receives as well all the pids
 	file = open(argv[1], O_RDONLY); //protect your open you dumb fuck
+<<<<<<< HEAD:code_vault_stuff/avec_mik.c
 	if (file == -1)
 	{
 		printf("could not open input file\n");
 		return (1);
 	}
+=======
+		if (file == -1)
+		{
+			printf("could not open input file\n");
+						return (1);
+		}
+>>>>>>> 222895a76c9b0a5cbcae510fcb559a59a4d957da:avec_mik.c
 	fd = execute(argv[2], file, &pids[0], 0);
 	//						FOR EVERY EXEC IN THE MIDDLE
 	//I start from 3 since my argv[0] is program , argv[1] is the file
@@ -99,22 +115,32 @@ int main(int argc, char** argv)
 	}
 	//						FOR THE LAST EXEC
 	outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0777);
+<<<<<<< HEAD:code_vault_stuff/avec_mik.c
 	if (outfile == -1)
 	{
 		printf("could not open output file\n");
 					return (1);
 	}
+=======
+>>>>>>> 222895a76c9b0a5cbcae510fcb559a59a4d957da:avec_mik.c
 	execute(argv[argc - 2], fd, &pids[argc - 2], outfile);
 
 	//------FROM HERE WE ARE IN THE MAIN PROCESS-----//
 	//Here I mostly just wait t'ill all of my PID ARE DONE
+<<<<<<< HEAD:code_vault_stuff/avec_mik.c
 	while (i < process_count) 
+=======
+	for (int i = 0; i < 4; ++i) 
+>>>>>>> 222895a76c9b0a5cbcae510fcb559a59a4d957da:avec_mik.c
 	{
 		waitpid(pids[i], &status, 0);
 		i++;
 	}
 	close(file);
 	close(outfile);
+<<<<<<< HEAD:code_vault_stuff/avec_mik.c
 	free(pids);
+=======
+>>>>>>> 222895a76c9b0a5cbcae510fcb559a59a4d957da:avec_mik.c
 	printf("Done with the operation\n");
 }
