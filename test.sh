@@ -49,3 +49,13 @@ printf "\033[1;34mDIFF HAS BEEN DONE ON file2 file3\n\033[1;0m"
 diff file2 file3 
 printf "\033[1;32mIF THE COMMANDS EXISTS NO WHITE ON PROMPT YOU WON\n\033[1;0m"
 
+printf "\033[1;33m--------------RUNNING THE TEST FOR ls -l and wc -l --------------\n\033[1;0m"
+printf "\033[1;34mSCRIPT TEST IS DONE WITH ./pipex file1 \"ls -l\" \"wc -l\" lass file2 \n\033[1;0m"
+printf "\033[1;34mSCRIPT TEST IS DONE WITH <file1 ls -l | wc -l >file3 \n\033[1;0m"
+printf "\033[1;34mDIFF HAS BEEN DONE ON file2 file3\n\033[1;0m"
+./pipex file1 "ls -l" "wc -l" file2
+<file1 ls -l | wc -l >file3
+diff file2 file3 
+printf "\033[1;32mIF THE COMMANDS EXISTS NO WHITE ON PROMPT YOU WON\n\033[1;0m"
+
+
