@@ -2,12 +2,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "./code_vault_stuff/colors.h"
-
-/*
-	To use this program just ./a.out + the name of the exec you are looking for
-	example : ./a.out ping
-*/
+#include "./include/colors.h"
 
 int	ft_w_counts(const char *s, char c)
 {
@@ -161,8 +156,8 @@ void	print_strarr(char **str)
 
 	while (str[i])
 	{
-		printf("%d = %s", i, str[i]);
-		printf("\n");
+		fprintf(stderr, "%d = %s", i, str[i]);
+		fprintf(stderr, "\n");
 		i++;
 	}
 }
@@ -195,7 +190,7 @@ int	strlen_path(char **env)
 	return (1);
 }
 
-char **env_to_strarr(char **param)
+char **path_to_strarr(char **param)
 {
 	int i;
 	int len;
@@ -222,7 +217,7 @@ char **env_to_strarr(char **param)
 	return (p_arr);
 }
 
-bool	search_argv1(char *p_arr, char *argv1)
+bool	search_argv1(const char *p_arr, const char *argv1)
 {
 	char *line;
 	char *with_slash;
@@ -240,30 +235,30 @@ bool	search_argv1(char *p_arr, char *argv1)
 	return (false);
 }
 
-int main(int argc, char **argv, char **env)
-{
-	char **p_arr;
-	int i;
+// int main(int argc, char **argv, char **env)
+// {
+// 	char **p_arr;
+// 	int i;
 
-	if (argc > 1)
-	{
-		p_arr = env_to_strarr(env);
-		print_strarr(p_arr);
-		i = 0;
-		while(p_arr[i])
-		{
-			if (search_argv1(p_arr[i], argv[1]) == true)
-			{
-				printf(GRN"\nWe found the command at i %d\n"RESET, i);
-				strarr_free(p_arr);
-				return (0);
-			}
-			i++;
-		}
-		printf(RED"We did not found the program your were looking for\n"RESET);
-		strarr_free(p_arr);
-		return (0);
-	}
-	else
-		printf("Usage = ./a.out \"name of the program to search\"");
-}
+// 	if (argc > 1)
+// 	{
+// 		p_arr = path_to_strarr(env);
+// 		print_strarr(p_arr);
+// 		i = 0;
+// 		while(p_arr[i])
+// 		{
+// 			if (search_argv1(p_arr[i], argv[1]) == true)
+// 			{
+// 				printf(GRN"\nWe found the command at i %d\n"RESET, i);
+// 				strarr_free(p_arr);
+// 				return (0);
+// 			}
+// 			i++;
+// 		}
+// 		printf(RED"We did not found the program your were looking for\n"RESET);
+// 		strarr_free(p_arr);
+// 		return (0);
+// 	}
+// 	else
+// 		printf("Usage = ./a.out \"name of the program to search\"");
+// }

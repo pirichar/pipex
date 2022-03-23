@@ -51,6 +51,7 @@ int execute(const char* cmd, int in, int* p, int out) {
 		// après je l'exec avec le path que j'ai trouvé
 		// ne pas prendre pour acquis que si je le trouve exve va réeussir d'ou le but d'utilsier
 		// exit -1 a la fin
+		//je devrais aussi split mon CMD avec des espace pour le passer à execve
 		execlp(cmd, cmd, NULL);
 		exit(1);
 	}
@@ -64,13 +65,17 @@ int execute(const char* cmd, int in, int* p, int out) {
 
 int main(int argc, char** argv) 
 {
-	//malloc argc * sizeof(int) idéalement
-	int pids[1024];
+	int *pids;
 	int file;
 	int fd;
 	int outfile;
 	int status;
+	int process_count;
+	int i;
 
+	process_count = argc -3;
+	pids = malloc(sizeof(int) * process_count);
+	i = 0;
 	//------FROM HERE ITS ALL IN MY CHLD PROCESS I DO NOTHING OTHERWISE-----//
 	
 	// 						FOR THE FIRST EXEC 
@@ -81,7 +86,7 @@ int main(int argc, char** argv)
 	if (file == -1)
 	{
 		printf("could not open input file\n");
-					return (1);
+		return (1);
 	}
 	fd = execute(argv[2], file, &pids[0], 0);
 	//						FOR EVERY EXEC IN THE MIDDLE
@@ -103,11 +108,13 @@ int main(int argc, char** argv)
 
 	//------FROM HERE WE ARE IN THE MAIN PROCESS-----//
 	//Here I mostly just wait t'ill all of my PID ARE DONE
-	for (int i = 0; i < 4; ++i) 
+	while (i < process_count) 
 	{
 		waitpid(pids[i], &status, 0);
+		i++;
 	}
 	close(file);
 	close(outfile);
+	free(pids);
 	printf("Done with the operation\n");
 }

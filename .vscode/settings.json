@@ -4,6 +4,9 @@
 		"string.h": "c",
 		"errno.h": "c",
 		"stdlib.h": "c",
-		"colors.h": "c"
+		"colors.h": "c",
+		"locale": "c",
+		"__locale": "c",
+		"sstream": "c"
 	}
 }
