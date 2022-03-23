@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 14:58:15 by pirichar          #+#    #+#             */
-/*   Updated: 2022/03/23 16:32:41 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/03/23 17:36:46 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,33 +24,33 @@ char **split_cmd(const char *path, const char *cmd)
 	return (rtn);
 }
 
-void	parse_and_exec_cmd(const char *cmd, char **env, t_ptrs *p)
+void	parse_and_exec_cmd(const char *cmd, char **env)
 {
 		int i;
-		// t_ptrs p;
+		t_ptrs p;
 
-		p->path = path_to_strarr(env);
-		p->cmd_with_slash = ft_strjoin("/", cmd);
-		p->cmd_split = ft_split(cmd, ' ');
+		p.path = path_to_strarr(env);
+		p.cmd_with_slash = ft_strjoin("/", cmd);
+		p.cmd_split = ft_split(cmd, ' ');
 		i = 0;
-		while(p->path[i])
+		while(p.path[i])
 		{
-			if (search_argv1(p->path[i], p->cmd_split[0]) == true)
+			if (search_argv1(p.path[i], p.cmd_split[0]) == true)
 			{
-				free(p->cmd_split);
-				p->final_cmd = split_cmd(p->path[i], p->cmd_with_slash);
-				free (p->path);
-				free (p->cmd_with_slash);
+				p.final_cmd = split_cmd(p.path[i], p.cmd_with_slash);
+				// free (p.cmd_split);
+				// free (p.path);
+				// free (p.cmd_with_slash);
 				//ici comment je fais pour free ma final_cmd ?!
 				//Should i create them in main and pass them after ?
-				execve(p->final_cmd[0], p->final_cmd, env);
-				free(p->final_cmd);
+				execve(p.final_cmd[0], p.final_cmd, env);
+				// free(p.final_cmd);
 				exit(1);
 			}
 			i++;
 		}
 		fprintf(stderr, "PLR: command not found %s\n", cmd);
-		free(p->path);
+		// free(p.path);
 		exit(1);
 }
 
@@ -58,7 +58,6 @@ void	parse_and_exec_cmd(const char *cmd, char **env, t_ptrs *p)
 int execute(const char *cmd, int in, int *p, int out, char **env) 
 {
 	int pipes[2] = {};
-	t_ptrs pt;
 	
 	if (out == 0)
 		pipe(pipes);
@@ -77,7 +76,7 @@ int execute(const char *cmd, int in, int *p, int out, char **env)
 			dup2(out, 1);
 			close(out);
 		}
-		parse_and_exec_cmd(cmd, env, &pt);
+		parse_and_exec_cmd(cmd, env);
 	}
 	close(in);
 	close(pipes[1]);
@@ -135,6 +134,5 @@ int main(int argc, char** argv, char **env)
 		i++;
 	}
 	close(files.file);
-	close(files.outfile);
 	free(pids);
 }
