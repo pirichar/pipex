@@ -1,8 +1,8 @@
 #!/bin/bash
 
-gcc -Wall -Werror -Wextra pipex.c environement.c -o pipex
+gcc -Wall -Werror -Wextra pipex.c environement.c ft_split.c str_functions.c -o pipex
 
-printf "\033[1;33m--------------RUNNING THE TEST FOR WC--------------\n\033[1;0m"
+printf "\033[1;33m--------------RUNNING THE TEST FOR WC \033[1;31mMIGHT BE AN ERROR\033[1;33m--------------\n\033[1;0m"
 printf "\033[1;34mSCRIPT TEST IS DONE WITH ./pipex file1 wc file2 \n\033[1;0m"
 printf "\033[1;34mSCRIPT TEST IS DONE WITH <file1 wc >file3 \n\033[1;0m"
 printf "\033[1;34mSCRIPT TEST IS DONE diff file2 file3\n\033[1;0m"
@@ -31,7 +31,7 @@ diff file2 file3
 printf "\033[1;32mIF NO WHITE ON PROMPT YOU WON\n\033[1;0m"
 
 
-printf "\033[1;33m--------------RUNNING THE TEST FOR LASS WC --------------\n\033[1;0m"
+printf "\033[1;33m--------------RUNNING THE TEST FOR LASS WC \033[1;31mSHOULD BE AN ERROR\033[1;33m  --------------\n\033[1;0m"
 printf "\033[1;34mSCRIPT TEST IS DONE WITH ./pipex file1 lass wc file2 \n\033[1;0m"
 printf "\033[1;34mSCRIPT TEST IS DONE WITH <file1 lass | wc >file3 \n\033[1;0m"
 printf "\033[1;34mDIFF HAS BEEN DONE ON file2 file3\n\033[1;0m"
@@ -40,7 +40,7 @@ printf "\033[1;34mDIFF HAS BEEN DONE ON file2 file3\n\033[1;0m"
 diff file2 file3 
 printf "\033[1;32mIF NO WHITE ON PROMPT YOU WON\n\033[1;0m"
 
-printf "\033[1;33m--------------RUNNING THE TEST FOR WC LASS --------------\n\033[1;0m"
+printf "\033[1;33m--------------RUNNING THE TEST FOR WC LASS \033[1;31mSHOULD BE AN ERROR\033[1;33m --------------\n\033[1;0m"
 printf "\033[1;34mSCRIPT TEST IS DONE WITH ./pipex file1 wc lass file2 \n\033[1;0m"
 printf "\033[1;34mSCRIPT TEST IS DONE WITH <file1 wc | lass >file3 \n\033[1;0m"
 printf "\033[1;34mDIFF HAS BEEN DONE ON file2 file3\n\033[1;0m"
