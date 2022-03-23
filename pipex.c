@@ -1,37 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 14:58:15 by pirichar          #+#    #+#             */
+/*   Updated: 2022/03/23 15:18:28 by pirichar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./include/pipex.h"
 
-char **	split_cmd(const char *path, const char *cmd)
+//COMMENT JE FREE MES TRUCS SI JE LES EXECS ?!
+char **split_cmd(const char *path, const char *cmd)
 {
 	char **rtn;
 	char *cmd_with_path;
 
 	cmd_with_path = ft_strjoin(path, cmd);
 	rtn = ft_split(cmd_with_path, ' ');
-	//COMMENT JE FREE MES TRUCS SI JE LES EXECS ?
 	free (cmd_with_path);
 	return (rtn);
 }
-//En gros v/rifier si le path existe 
-//s'il n'
+
 void	parse_and_exec_cmd(const char *cmd, char **env)
 {
 		char **path;
 		char *with_slash;
 		char **final_cmd;
+		char **cmd_split;
 
 		int i;
 
 		path = path_to_strarr(env);
 		with_slash = ft_strjoin("/", cmd);
+		cmd_split = ft_split(cmd, ' ');
+
 		i = 0;
 		while(path[i])
 		{
-			if (search_argv1(path[i], cmd) == true)
+			if (search_argv1(path[i], cmd_split[0]) == true)
 			{
+				free(cmd_split);
 				final_cmd = split_cmd(path[i], with_slash);
 				free (path);
 				free (with_slash);
 				execve(final_cmd[0], final_cmd, env);
+				free(final_cmd);
 				exit(1);
 			}
 			i++;
@@ -46,12 +62,9 @@ int execute(const char* cmd, int in, int* p, int out, char **env)
 {
 	int pipes[2] = {};
 
-	//if I am not at the very last operation
 	if (out == 0)
 		pipe(pipes);
 	int pid = fork();
-
-	//in the child process
 	if (pid == 0) 
 	{
 		dup2(in, 0);
