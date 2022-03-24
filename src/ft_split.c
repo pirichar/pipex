@@ -6,11 +6,11 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:13:38 by pirichar          #+#    #+#             */
-/*   Updated: 2022/03/23 16:14:20 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/03/24 14:01:52 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/pipex.h"
+#include "../include/pipex.h"
 
 int	ft_w_counts(const char *s, char c)
 {

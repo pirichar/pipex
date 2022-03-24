@@ -6,11 +6,11 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:15:08 by pirichar          #+#    #+#             */
-/*   Updated: 2022/03/23 16:16:38 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/03/24 14:02:29 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/pipex.h"
+#include "../include/pipex.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -48,12 +48,12 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	return (count);
 }
 
-int ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 		i++;
 	return (i);
 }
