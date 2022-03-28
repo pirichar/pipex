@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 14:58:15 by pirichar          #+#    #+#             */
-/*   Updated: 2022/03/28 09:54:59 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/03/28 16:10:15 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	calling_the_execs(int argc, char **argv, char **env, t_files *f)
 
 	fd = execute(argv[2], f->infile, &f->pids[0], env);
 	j = 3;
-	while (j < argc - 2) 
+	while (j < argc - 2)
 	{
 		fd = execute(argv[j], fd, &f->pids[j - 2], env);
 		j++;
@@ -119,41 +119,10 @@ int	calling_the_execs(int argc, char **argv, char **env, t_files *f)
 	f->outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (f->outfile == -1)
 	{
-		ft_put_str_error( "could not open output file\n");
+		ft_put_str_error("could not open output file\n");
 		return (1);
 	}
-	execute_out(argv[argc - 2], (int[2]){fd, f->outfile},
+	execute_out(argv[argc - 2], (int [2]){fd, f->outfile},
 		&f->pids[f->process_count - 1], env);
 	return (0);
-}
-
-
-int main(int argc, char** argv, char **env) 
-{
-	int status;
-	int i;
-	t_files f;
-
-	if (argc > 3)
-	{
-		i = 0;
-		f.process_count = (argc - 3);
-		f.pids = malloc(sizeof(int) * f.process_count);
-		f.infile = open(argv[1], O_RDONLY);
-		if (f.infile == -1)
-		{
-			ft_put_str_error("Could not open input file\n");
-			free (f.pids);
-			return (1);
-		}
-		if (calling_the_execs(argc, argv, env, &f) == 1)
-			return (1);
-		while (i < argc - 3) 
-		{
-			waitpid(f.pids[i], &status, 0);
-			i++;
-		}
-		close(f.infile);
-		free(f.pids);
-	}
 }

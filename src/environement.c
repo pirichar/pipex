@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:13:03 by pirichar          #+#    #+#             */
-/*   Updated: 2022/03/26 12:54:00 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/03/28 12:59:19 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ char	**path_to_strarr(char **param)
 	int		i;
 	int		len;
 	char	*path;
-	// char	*tmp;
 	char	**p_arr;
 
 	len = strlen_path(param);
