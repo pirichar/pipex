@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:13:03 by pirichar          #+#    #+#             */
-/*   Updated: 2022/03/24 14:01:47 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/03/26 12:54:00 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	**path_to_strarr(char **param)
 	int		i;
 	int		len;
 	char	*path;
-	char	*tmp;
+	// char	*tmp;
 	char	**p_arr;
 
 	len = strlen_path(param);
@@ -56,14 +56,11 @@ char	**path_to_strarr(char **param)
 		if (ft_strncmp(param[i], "PATH=", 5) == 0)
 		{
 			ft_strlcpy(path, param[i], len);
-			tmp = path;
-			while (*path != '/')
-				(*path)++;
 			p_arr = ft_split(path + 5, ':');
 		}
 			i++;
 	}
-	free (tmp);
+	free (path);
 	return (p_arr);
 }
 
