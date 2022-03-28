@@ -111,7 +111,6 @@ int	calling_the_execs(int argc, char **argv, char **env, t_files *f)
 
 	fd = execute(argv[2], f->infile, &f->pids[0], env);
 	j = 3;
-
 	while (j < argc - 2) 
 	{
 		fd = execute(argv[j], fd, &f->pids[j - 2], env);
@@ -123,7 +122,8 @@ int	calling_the_execs(int argc, char **argv, char **env, t_files *f)
 		ft_put_str_error( "could not open output file\n");
 		return (1);
 	}
-	execute_out(argv[argc - 2], (int[2]){fd, f->outfile}, &f->pids[f->process_count - 1], env);
+	execute_out(argv[argc - 2], (int[2]){fd, f->outfile},
+		&f->pids[f->process_count - 1], env);
 	return (0);
 }
 
