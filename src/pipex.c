@@ -48,51 +48,20 @@ void	parse_and_exec_cmd(const char *cmd, char **env)
 	free (p.cmd_with_slash);
 	exit(1);
 }
-/*
-	Execute take as input the cmd, the fd it needs to read from
-	An array of int for the pids, the fd it needs to write to
-	and the variable of environement 
 
-	pipes[0] is to read - Its the output 
-	pipes[1] is to write - Its the input
-	The execute function works this way :
-	1-pipe only if we are not at the last operation
-	2-Then it will fork the process
-	3-In the child process it will dup2 the ouput of my pipe to stdin 
-	it will then close the fd_in passed to the function
-	4-Then if we are not at the last process and fd_out == 0
-	It will dup2 the input of my pipe to the stdout
-	and close the pipe[1]
-	5-If we are at the last process it will dup2 into the outfile
-	instead of the output of the pipe
-	6-Finally i call parse_and_exec_cmd to exec the cmd
-	7- In the main I close my fd_in , I close my pipe[1] 
-	I write into the adress of the PID array my PID
-	8- finally return the output of my pipe that is linked to my child
-*/
-
-int	execute(const char *cmd, int fd_in, int *p, int fd_out, char **env)
+int	execute(const char *cmd, int fd_in, int *p, char **env)
 {
 	int	pipes[2];
 	int	pid;
-	
-	if (fd_out == 0)
-		pipe(pipes);
+
+	pipe(pipes);
 	pid = fork();
 	if (pid == 0)
 	{
 		dup2(fd_in, 0);
 		close(fd_in);
-		if (fd_out == 0) 
-		{
-			dup2(pipes[1], 1);
-			close(pipes[1]);
-		}
-		else
-		{
-			dup2(fd_out, 1);
-			close(fd_out);
-		}
+		dup2(pipes[1], 1);
+		close(pipes[1]);
 		parse_and_exec_cmd(cmd, env);
 	}
 	close(fd_in);
@@ -101,37 +70,64 @@ int	execute(const char *cmd, int fd_in, int *p, int fd_out, char **env)
 	return (pipes[0]);
 }
 
+void	execute_out(const char *cmd, int fds[2], int *p, char **env)
+{
+	int	pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		dup2(fds[0], 0);
+		close(fds[0]);
+		dup2(fds[1], 1);
+		close(fds[1]);
+		parse_and_exec_cmd(cmd, env);
+	}
+	close(fds[0]);
+	*p = pid;
+}
+
 /* 
 	Calling the exec goes through all the commands and run execute on that command
 	It will give execute different parameters depending on 
 	the command on are working with
 	If it is the first command you will pas the infile to execute instead of fd
+
+	argc == 8
+	argc - 2 == 6
+	process count == 5
+	pendant que J (3) est plus petit que 6
+	PREMIER PROCESS pid[0]
+	j = 2e process = 3 = pids[3 - 2 (1)]
+	j = 3e process == 4 = pids[4 -2 (2)]
+	j = 4e process == 5 = pids[5 -2 (3)]
+	j = 5e process == 6 = I GET OUT OF THE LOOP
+	LAST PROCESS = pids[process_count-1 (5) - 1 (4)]
 */
-int	calling_the_execs(int argc, char **argv, char **env, t_files f)
-{	
+int	calling_the_execs(int argc, char **argv, char **env, t_files *f)
+{
 	int	fd;
 	int	j;
 
-	fd = execute(argv[2], f.infile, &f.pids[0], 0, env);
+	fd = execute(argv[2], f->infile, &f->pids[0], env);
 	j = 3;
+
 	while (j < argc - 2) 
 	{
-		fd = execute(argv[j], fd, &f.pids[j - 2], 0, env);
+		fd = execute(argv[j], fd, &f->pids[j - 2], env);
 		j++;
 	}
-	f.outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0777);
-	if (f.outfile == -1)
+	f->outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	if (f->outfile == -1)
 	{
-		fprintf(stderr, "could not open output file\n");
+		ft_put_str_error( "could not open output file\n");
 		return (1);
 	}
-	//est-ce que je devrais quand meme faire fd = execute et fermer le fd ?!
-	execute(argv[argc - 2], fd, &f.pids[argc - 2], f.outfile, env);
+	execute_out(argv[argc - 2], (int[2]){fd, f->outfile}, &f->pids[f->process_count - 1], env);
 	return (0);
 }
 
-/*
-*/
+
 int main(int argc, char** argv, char **env) 
 {
 	int status;
@@ -141,7 +137,7 @@ int main(int argc, char** argv, char **env)
 	if (argc > 3)
 	{
 		i = 0;
-		f.process_count = argc -3;
+		f.process_count = (argc - 3);
 		f.pids = malloc(sizeof(int) * f.process_count);
 		f.infile = open(argv[1], O_RDONLY);
 		if (f.infile == -1)
@@ -150,9 +146,9 @@ int main(int argc, char** argv, char **env)
 			free (f.pids);
 			return (1);
 		}
-		if (calling_the_execs(argc, argv, env, f) == 1)
+		if (calling_the_execs(argc, argv, env, &f) == 1)
 			return (1);
-		while (i < f.process_count) 
+		while (i < argc - 3) 
 		{
 			waitpid(f.pids[i], &status, 0);
 			i++;
