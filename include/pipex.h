@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 12:47:29 by pirichar          #+#    #+#             */
-/*   Updated: 2022/03/31 08:45:19 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/03/31 13:00:28 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	**ft_split(const char *s, char c);
 char	*ft_strjoin(const char *s1, const char *s2);
 void	print_strarr(char **str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-int		ft_strlen(const char *str);
+unsigned int	ft_strlen(const char *str);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 void	ft_put_str_error(char *str);
 int		calling_the_execs(int argc, char **argv, char **env, t_files *f);

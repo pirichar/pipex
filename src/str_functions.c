@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:15:08 by pirichar          #+#    #+#             */
-/*   Updated: 2022/03/24 14:02:29 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/03/31 13:00:09 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	return (count);
 }
 
-int	ft_strlen(const char *str)
+unsigned int	ft_strlen(const char *str)
 {
 	int	i;
 

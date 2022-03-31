@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:04:02 by pirichar          #+#    #+#             */
-/*   Updated: 2022/03/31 08:56:51 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/03/31 13:08:34 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,14 @@ void	run_here_doc(void)
 		each time check if you have only the limiter
 		when you have the limiter pass the tmp file as the infile
 	*/
-	// int file;
+	int file;
 
-	// file = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC , 0777);
+	file = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC , 0777);
+	while(1)
+	{
+		
+		
+	}
 
 	ft_put_str_error("NOTHING TO DO YET CUZ PIER-LUC IS LAZY\n");
 }

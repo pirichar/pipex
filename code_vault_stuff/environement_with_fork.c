@@ -116,7 +116,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	return (count);
 }
 
-int ft_strlen(const char *str)
+unsigned int ft_strlen(const char *str)
 {
 	int i;
 
