@@ -22,8 +22,15 @@ SRCS		= $(addprefix $(SRC)/, $(CFILES))
 OBJS		= $(addprefix $(OBJ)/, $(OFILES))
 HEADERS		= $(addprefix $(INC)/, $(HFILES))
 
+GNL			= gnl
+GFILES		= get_next_line_utils.c get_next_line.c
+OGNL		= $(GFILES:.c=.o)
+GETNEXT		= $(addprefix $(GNL)/, $(GFILES))
+OBJG		= $(addprefix $(OBJ)/, $(OGNL))
+
+
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -g -O3
+CFLAGS		= -Wall -Werror -Wextra -g
 RM			= rm -rf
 
 $(OBJ)/%.o:	$(SRC)/%.c
@@ -49,5 +56,3 @@ re:			fclean all
 
 norme:
 			@norminette $(SRCS) $(HEADERS)
-
-	

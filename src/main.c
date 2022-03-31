@@ -16,12 +16,15 @@ int	init_process(int argc, char **argv, t_files *f)
 {
 	f->process_count = (argc - 3);
 	f->pids = malloc(sizeof(int) * f->process_count);
-	f->infile = open(argv[1], O_RDONLY);
-	if (f->infile == -1)
+	if (f->here_doc == 0)
 	{
-		ft_put_str_error("Could not open input file\n");
-		free (f->pids);
-		return (1);
+		f->infile = open(argv[1], O_RDONLY);
+		if (f->infile == -1)
+		{
+			ft_put_str_error("Could not open input file\n");
+			free (f->pids);
+			return (1);
+		}
 	}
 	return (0);
 }
@@ -48,21 +51,35 @@ int	init_process(int argc, char **argv, t_files *f)
 	For the output par its pretty much the same but I need to change the rights
 */
 void	run_here_doc(void)
-{
-	//dans l'exemple il utilisent << et >>
-	// >> va append le fichier au lieu de simplement overwrite
-	// il faudra donc que le outfile soit ouvert différament
-	// il creer toujours le outfile sil nexiste pas mais nappend pas
-	//pour l'input il faudrait que le child process fasse un get next line sur le stdin
-	//jusqu'à temps qu'il tappe le limiter (ARGV[2]) seul sur un string
-	//quand il aura trouvé ça il pourra continuer avec la procédure
+{	
+	/* 
+		Open a temp file 
+		do an infinite while loop
+		get the next line
+		each time check if you have only the limiter
+		when you have the limiter pass the tmp file as the infile
+	*/
+	// int file;
+
+	// file = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC , 0777);
 
 	ft_put_str_error("NOTHING TO DO YET CUZ PIER-LUC IS LAZY\n");
 }
 
+void	wait_for_pids(t_files *f)
+{
+	int i;
+
+	i = 0;
+	while (i < f->process_count)
+	{
+		waitpid(f->pids[i], &f->status, 0);
+		i++;
+	}
+}
+
 int	main(int argc, char **argv, char **env)
 {
-	int		i;
 	t_files	f;
 
 	if (argc > 3)
@@ -72,16 +89,13 @@ int	main(int argc, char **argv, char **env)
 			run_here_doc();
 			return (2);
 		}
+		else
+			f.here_doc = 0;
 		if (init_process(argc, argv, &f) == 1)
 			return (1);
 		if (calling_the_execs(argc, argv, env, &f) == 1)
 			return (3);
-		i = 0;
-		while (i < f.process_count)
-		{
-			waitpid(f.pids[i], &f.status, 0);
-			i++;
-		}
+		wait_for_pids(&f);
 		close(f.infile);
 		free(f.pids);
 	}
@@ -89,3 +103,5 @@ int	main(int argc, char **argv, char **env)
 		ft_put_str_error("Pipex usage : ./pipex in_file cmd1...cmd2 out_file\n");
 	return (0);
 }
+
+

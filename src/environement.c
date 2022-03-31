@@ -47,6 +47,7 @@ char	**path_to_strarr(char **param)
 	char	*path;
 	char	**p_arr;
 
+	p_arr = NULL;
 	len = strlen_path(param);
 	path = malloc(sizeof(char) * len);
 	i = 0;

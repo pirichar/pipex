@@ -21,7 +21,8 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include "colors.h"
-#include <errno.h>
+# include <errno.h>
+# include "../gnl/get_next_line.h"
 
 typedef struct s_files
 {
@@ -30,6 +31,7 @@ typedef struct s_files
 	int		*pids;
 	int		process_count;
 	int		status;
+	int		here_doc;
 }				t_files;
 
 typedef struct s_ptrs
