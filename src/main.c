@@ -6,11 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:04:02 by pirichar          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/03/30 20:54:43 by pirichar         ###   ########.fr       */
-=======
-/*   Updated: 2022/03/28 18:29:49 by pirichar         ###   ########.fr       */
->>>>>>> ff38854cb930db2703bb2e6164caee07ef18a0c8
+/*   Updated: 2022/03/31 08:51:08 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +25,6 @@ int	init_process(int argc, char **argv, t_files *f)
 	}
 	return (0);
 }
-<<<<<<< HEAD
 
 /*
 	./pipex here_doc LIMITER cmd cmd1 file
@@ -47,9 +42,6 @@ int	init_process(int argc, char **argv, t_files *f)
 	4- the first cmd will dup the stdin to the output of the pipe ?
 	5- The last cmd will take the output of the pipe of the first comand and output to the output file
 	
-=======
-/*
->>>>>>> ff38854cb930db2703bb2e6164caee07ef18a0c8
 	when I see here_doc
 	I need to read the stdin untill i see the delemiter again
 	This would then be passed to the first command as the input 
@@ -60,14 +52,10 @@ void	run_here_doc(void)
 	//dans l'exemple il utilisent << et >>
 	// >> va append le fichier au lieu de simplement overwrite
 	// il faudra donc que le outfile soit ouvert différament
-<<<<<<< HEAD
 	// il creer toujours le outfile sil nexiste pas mais nappend pas
 	//pour l'input il faudrait que le child process fasse un get next line sur le stdin
 	//jusqu'à temps qu'il tappe le limiter (ARGV[2]) seul sur un string
 	//quand il aura trouvé ça il pourra continuer avec la procédure
-=======
-	// il creer toujours le file sil nexiste pas mais nappend pas
->>>>>>> ff38854cb930db2703bb2e6164caee07ef18a0c8
 
 	ft_put_str_error("NOTHING TO DO YET CUZ PIER-LUC IS LAZY\n");
 }
