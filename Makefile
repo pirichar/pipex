@@ -6,7 +6,11 @@
 #    By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/27 11:00:22 by pirichar          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2022/03/30 09:45:25 by pirichar         ###   ########.fr        #
+=======
+#    Updated: 2022/03/28 15:15:24 by pirichar         ###   ########.fr        #
+>>>>>>> ff38854cb930db2703bb2e6164caee07ef18a0c8
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +27,11 @@ OBJS		= $(addprefix $(OBJ)/, $(OFILES))
 HEADERS		= $(addprefix $(INC)/, $(HFILES))
 
 CC			= gcc
+<<<<<<< HEAD
 CFLAGS		= -Wall -Werror -Wextra -g -O3
+=======
+CFLAGS		= -Wall -Werror -Wextra -g -O1
+>>>>>>> ff38854cb930db2703bb2e6164caee07ef18a0c8
 RM			= rm -rf
 
 $(OBJ)/%.o:	$(SRC)/%.c
