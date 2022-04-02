@@ -5,11 +5,11 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "gcc - Générer et déboguer le fichier actif",
-			"type": "cppdbg",
+			"type": "lldb",
 			"request": "launch",
-			"program": "${fileDirname}/../a.out",
-			"args": [],
+			"name": "Debug",
+			"program": "${workspaceFolder}/pipex",
+			"args": ["here_doc" ,"LIMITER" ,"cat","wc -l""file2"],
 			"cwd": "${fileDirname}",
 			"environment": [],
 "

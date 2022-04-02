@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:04:02 by pirichar          #+#    #+#             */
-/*   Updated: 2022/03/31 13:08:34 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/02 13:35:04 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 int	init_process(int argc, char **argv, t_files *f)
 {
-	f->process_count = (argc - 3);
+	if (f->here_doc == 0)
+		f->process_count = (argc - 3);
+	else
+		f->process_count = (argc - 4);
 	f->pids = malloc(sizeof(int) * f->process_count);
 	if (f->here_doc == 0)
 	{
@@ -33,6 +36,7 @@ int	init_process(int argc, char **argv, t_files *f)
 	./pipex here_doc LIMITER cmd cmd1 file
 	argc is 6
 	number of command is 2
+	./pipex is argv[0]
 	here doc is at argv[1]
 	limiter is at argv[2]
 	first cmd is at argv[3]
@@ -50,25 +54,31 @@ int	init_process(int argc, char **argv, t_files *f)
 	This would then be passed to the first command as the input 
 	For the output par its pretty much the same but I need to change the rights
 */
-void	run_here_doc(void)
+void	run_here_doc(char *limiter, t_files *f)
 {	
-	/* 
-		Open a temp file 
-		do an infinite while loop
-		get the next line
-		each time check if you have only the limiter
-		when you have the limiter pass the tmp file as the infile
-	*/
 	int file;
+	char *buf;
 
 	file = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC , 0777);
+	//protect the open
 	while(1)
 	{
-		
-		
+		write(1, "heredoc>",9);
+		buf = get_next_line(0);
+		if (!ft_strncmp(limiter, buf, ft_strlen(limiter)))
+			break;
+		write(file, buf, ft_strlen(buf));
+		free (buf);
 	}
-
-	ft_put_str_error("NOTHING TO DO YET CUZ PIER-LUC IS LAZY\n");
+	free (buf);
+	close(file);
+	f->infile = open("here_doc", O_RDONLY);
+	if (f->infile == -1)
+	{
+		ft_put_str_error("Could not open input file\n");
+		free (f->pids);
+	}
+	f->here_doc = 1;
 }
 
 void	wait_for_pids(t_files *f)
@@ -91,8 +101,8 @@ int	main(int argc, char **argv, char **env)
 	{
 		if (ft_strncmp(argv[1], "here_doc",9) == 0)
 		{
-			run_here_doc();
-			return (2);
+			run_here_doc(argv[2], &f);
+			// return (2);
 		}
 		else
 			f.here_doc = 0;
