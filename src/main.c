@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:04:02 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/02 13:35:04 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/02 13:55:34 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,14 @@ int	init_process(int argc, char **argv, t_files *f)
 	This would then be passed to the first command as the input 
 	For the output par its pretty much the same but I need to change the rights
 */
-void	run_here_doc(char *limiter, t_files *f)
+int	run_here_doc(char *limiter, t_files *f)
 {	
 	int file;
 	char *buf;
 
 	file = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC , 0777);
-	//protect the open
+	if (file == -1)
+		return (1);
 	while(1)
 	{
 		write(1, "heredoc>",9);
@@ -79,6 +80,7 @@ void	run_here_doc(char *limiter, t_files *f)
 		free (f->pids);
 	}
 	f->here_doc = 1;
+	return (0);
 }
 
 void	wait_for_pids(t_files *f)
@@ -91,6 +93,8 @@ void	wait_for_pids(t_files *f)
 		waitpid(f->pids[i], &f->status, 0);
 		i++;
 	}
+	close(f->infile);
+	free(f->pids);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -101,18 +105,24 @@ int	main(int argc, char **argv, char **env)
 	{
 		if (ft_strncmp(argv[1], "here_doc",9) == 0)
 		{
-			run_here_doc(argv[2], &f);
-			// return (2);
+			if (argc != 6)
+			{
+				ft_put_str_error("WRONG USAGE OF HEREDOC NOT ENOUGH ARGUMENTS\n");
+				return (1);
+			}	
+			if (run_here_doc(argv[2], &f) == 1)
+			{
+				ft_put_str_error("COULD NOT CREATE FILE FOR HEREDOC\n");
+				return (2);
+			}
 		}
 		else
 			f.here_doc = 0;
 		if (init_process(argc, argv, &f) == 1)
-			return (1);
-		if (calling_the_execs(argc, argv, env, &f) == 1)
 			return (3);
+		if (calling_the_execs(argc, argv, env, &f) == 1)
+			return (4);
 		wait_for_pids(&f);
-		close(f.infile);
-		free(f.pids);
 	}
 	else
 		ft_put_str_error("Pipex usage : ./pipex in_file cmd1...cmd2 out_file\n");

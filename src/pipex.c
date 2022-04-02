@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 14:58:15 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/02 13:27:16 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/02 13:54:12 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,9 @@ int	calling_the_execs_bonus(int argc, char **argv, char **env, t_files *f)
 		ft_put_str_error("could not open output file\n");
 		return (1);
 	}
+	//I COULD HANDLE ALL THE CASES WITH MULTIPLE CMD JUST BY 
+	//AADDING J = 4 and looping while j < argc - something
+	// I should also change the last execute for argv[count -1]
 	execute_out(argv[4], (int [2]){fd, f->outfile},
 	&f->pids[f->process_count - 1], env);
 	return (0);
