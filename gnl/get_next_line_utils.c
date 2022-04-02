@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:32:25 by pirichar          #+#    #+#             */
-/*   Updated: 2022/03/31 13:03:49 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/02 14:12:28 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char	*ft_strdup(const char *s1)
 	*(str + ft_strlen(s1)) = '\0';
 	return (str);
 }
+
 char	*ft_strjoin_free(char *s1, const char *s2)
 {
 	char	*str;

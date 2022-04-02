@@ -94,6 +94,12 @@ rm -rf YOURMOMA
 printf "\033[1;33m--------------RUNNING FOR HERE_DOC--------------\n\033[1;0m"
 printf "\033[1;34mSCRIPT TEST IS DONE WITH ./pipex here_doc LIMITER cat wc-l file2  \n\033[1;0m"
 ./pipex here_doc LIMITER "cat" "wc -l" file2
+printf "\033[1;34mTHIS IS WHAT IS IN FILE 2\n\033[1;0m"
+cat file2
+printf "\033[1;34mIT SHOULD BE THE SAME AS THE FOLLOWING WHICH IS wc -l of here_doc\n\033[1;0m"
+wc -l here_doc
+
+
 
 
 

@@ -6,7 +6,7 @@
 #    By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/27 11:00:22 by pirichar          #+#    #+#              #
-#    Updated: 2022/03/31 12:55:42 by pirichar         ###   ########.fr        #
+#    Updated: 2022/04/02 14:03:55 by pirichar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = pipex
 SRC			= src
 INC			= include
 OBJ			= obj
-CFILES		= main.c environement.c ft_put_str_error.c ft_split.c pipex.c str_functions.c
+CFILES		= main.c environement.c ft_put_str_error.c ft_split.c pipex.c str_functions.c here_doc.c
 HFILES		= colors.h pipex.h
 OFILES		= $(CFILES:.c=.o)
 SRCS		= $(addprefix $(SRC)/, $(CFILES))

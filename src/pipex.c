@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 14:58:15 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/02 13:54:12 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/02 14:04:10 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,25 +104,6 @@ void	execute_out(const char *cmd, int fds[2], int *p, char **env)
 	j = 5e process == 6 = I GET OUT OF THE LOOP
 	LAST PROCESS = pids[process_count-1 (5) - 1 (4)]
 */
-
-int	calling_the_execs_bonus(int argc, char **argv, char **env, t_files *f)
-{	
-	int	fd;
-
-	fd = execute(argv[3], f->infile, &f->pids[0], env);
-	f->outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0777);
-	if (f->outfile == -1)
-	{
-		ft_put_str_error("could not open output file\n");
-		return (1);
-	}
-	//I COULD HANDLE ALL THE CASES WITH MULTIPLE CMD JUST BY 
-	//AADDING J = 4 and looping while j < argc - something
-	// I should also change the last execute for argv[count -1]
-	execute_out(argv[4], (int [2]){fd, f->outfile},
-	&f->pids[f->process_count - 1], env);
-	return (0);
-}
 
 int	calling_the_execs(int argc, char **argv, char **env, t_files *f)
 {
