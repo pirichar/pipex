@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:32:30 by pirichar          #+#    #+#             */
-/*   Updated: 2022/03/31 12:59:03 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/06 11:12:52 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <limits.h>
-#include "../include/pipex.h"
+# include "../include/pipex.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 100

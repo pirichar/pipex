@@ -91,6 +91,11 @@ diff file2 file3
 printf "\033[1;32mIF THE COMMANDS WORKED NO WHITE ON PROMPT YOU WON\n\n\033[1;0m"
 rm -rf YOURMOMA
 
+printf "\033[1;33m--------------RUNNING FOR HERE_DOC WITH NOT ENOUGH ARGS--------------\n\033[1;0m"
+printf "\033[1;34mSCRIPT TEST IS DONE WITH ./pipex here_doc LIMITER cat wc-l   \n\033[1;0m"
+./pipex here_doc LIMITER "cat" "wc -l" 
+
+
 printf "\033[1;33m--------------RUNNING FOR HERE_DOC--------------\n\033[1;0m"
 printf "\033[1;34mSCRIPT TEST IS DONE WITH ./pipex here_doc LIMITER cat wc-l file2  \n\033[1;0m"
 ./pipex here_doc LIMITER "cat" "wc -l" file2
