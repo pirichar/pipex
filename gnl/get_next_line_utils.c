@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:32:25 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/02 14:12:28 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/04 08:14:24 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 char	*ft_strdup(const char *s1)
 {
 	char	*str;
-	int		num;
 
 	str = malloc(sizeof(char) * (ft_strlen(s1) + 1));
 	if (str == NULL)
 	{
 		return (0);
 	}
-	num = ft_strlcpy(str, s1, sizeof(char) * (ft_strlen(s1) + 1));
+	ft_strlcpy(str, s1, sizeof(char) * (ft_strlen(s1) + 1));
 	*(str + ft_strlen(s1)) = '\0';
 	return (str);
 }
