@@ -6,7 +6,7 @@
 #    By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/27 11:00:22 by pirichar          #+#    #+#              #
-#    Updated: 2022/04/07 12:38:23 by pirichar         ###   ########.fr        #
+#    Updated: 2022/04/07 15:21:09 by pirichar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC			= src
 INC			= include
 OBJ			= obj
 BNS 		= bonus
-CFILES		= main.c environement.c ft_put_str_error.c ft_split.c pipex.c str_functions.c here_doc.c
+CFILES		= main.c environement.c ft_put_str_error.c ft_split.c pipex.c str_functions.c
 HFILES		= colors.h pipex.h
 OFILES		= $(CFILES:.c=.o)
 SRCS		= $(addprefix $(SRC)/, $(CFILES))
@@ -54,7 +54,7 @@ $(OBJ):
 all:		$(NAME)
 
 bonus :		$(OBJ) $(OBJBNS)
-			$(CC) $(OBJBNS) -o $(NAME)
+			@$(CC) $(OBJBNS) -o $(NAME)
 			@echo "COMPILING BONUS DONE"
 clean:
 			@$(RM) $(OBJS) $(OBJ)
