@@ -6,7 +6,7 @@
 #    By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/27 11:00:22 by pirichar          #+#    #+#              #
-#    Updated: 2022/04/07 15:31:21 by pirichar         ###   ########.fr        #
+#    Updated: 2022/04/07 15:49:23 by pirichar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,13 +51,18 @@ $(NAME):	$(OBJ) $(OBJS)
 $(OBJ):	
 			@mkdir -p $(OBJ)
 
+# $(BNAME):	$(OBJ) $(OBJBNS)
+# 			@$(CC) $(OBJBNS) -o $(NAME)
+# 			@echo "COMPILING BONUS DONE"
+
 all:		$(NAME)
 
 bonus :		$(OBJ) $(OBJBNS)
 			@$(CC) $(OBJBNS) -o $(NAME)
 			@echo "COMPILING BONUS DONE"
+
 clean:
-			@$(RM) $(OBJS) $(OBJ)
+			@$(RM) $(OBJS) $(OBJBNS) $(OBJ)
 
 fclean:		clean
 			@$(RM) $(NAME)
