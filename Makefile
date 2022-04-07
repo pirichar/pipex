@@ -6,7 +6,7 @@
 #    By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/27 11:00:22 by pirichar          #+#    #+#              #
-#    Updated: 2022/04/02 14:03:55 by pirichar         ###   ########.fr        #
+#    Updated: 2022/04/07 07:49:30 by pirichar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,6 @@ CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra -g
 RM			= rm -rf
 
-# $(OBJ)/%.o:	$(SRC)/%.c 
 $(OBJ)/%.o:	%.c 
 			@$(CC) $(CFLAGS) -c $< -o  $@
 			
