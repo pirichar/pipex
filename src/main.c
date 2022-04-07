@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:04:02 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/07 15:21:02 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/07 15:28:27 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc == 5)
 	{
-		if (ft_strncmp(argv[1], argv[argc -1], ft_strlen(argv[1])) == 0)
+		if (ft_strncmp(argv[1], argv[argc -1], 20) == 0)
 		{
 			ft_put_str_error("ERROR INPUT IS THE SAME AS OUTPUT\n");
 			return (4);
