@@ -54,26 +54,23 @@ int	execute(const char *cmd, int fd_in, int *p, char **env)
 	int	pid;
 
 	pipe(pipes);
-	pid = fork();
-	if (pid == 0)
+	if(fd_in != -1)
 	{
-		if(fd_in == -1)
-			dup2(pipes[0], 0);	
-		else
+		pid = fork();
+		if (pid == 0)
 		{
 			dup2(fd_in, 0);
 			close(fd_in);
-		}
-		dup2(pipes[1], 1);
-		close(pipes[1]);
-		if (fd_in != -1)
+			dup2(pipes[1], 1);
+			close(pipes[1]);
 			parse_and_exec_cmd(cmd, env);
-		else
 			exit(1);
+		}
 	}
 	close(fd_in);
 	close(pipes[1]);
-	*p = pid;
+	if (fd_in != -1)
+		*p = pid;
 	return (pipes[0]);
 }
 
