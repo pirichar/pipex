@@ -25,13 +25,6 @@ printf "\033[1;31m--------------SHOULD BE AN ERROR--------------\n\033[1;33m"
 printf "\033[1;34mSCRIPT TEST IS DONE WITH ./pipex file1 wc \n\033[1;0m"
 ./pipex file1 wc
 
-printf "\033[1;33m--------------RUNNING THE TEST WITH A FACTIS INPUT FILE--------------\n\033[1;0m"
-printf "\033[1;31m--------------SHOULD BE AN ERROR--------------\n\033[1;33m"
-printf "\033[1;34mSCRIPT TEST IS DONE WITH ./pipex YOURMOMA3 cat wc file2 \n\033[1;0m"
-printf "\033[1;34mSCRIPT TEST IS DONE WITH <<YOURMOMA3 cat wc >file3 \n\033[1;0m"
-./pipex YOURMOMA3 cat wc file2
-<YOURMOMA3 cat wc >file3
-
 printf "\033[1;33m--------------RUNNING THE TEST WITH SAME INPUT FILE AS OUTPUT FILE--------------\n\033[1;0m"
 printf "\033[1;31m--------------SHOULD BE AN ERROR--------------\n\033[1;33m"
 printf "\033[1;34mSCRIPT TEST IS DONE WITH ./pipex file1 cat wc file1 \n\033[1;0m"
@@ -62,6 +55,17 @@ printf "\033[1;34mDIFF HAS BEEN DONE ON file2 file3\n\033[1;0m"
 ./pipex file1 wc lass file2
 <file1 wc | lass >file3
 diff file2 file3 
+
+printf "\033[1;33m--------------RUNNING THE TEST WITH A FACTIS INPUT FILE--------------\n\033[1;0m"
+# printf "\033[1;31m--------------SHOULD BE AN ERROR--------------\n\033[1;33m"
+printf "\033[1;34mSCRIPT TEST IS DONE WITH ./pipex YOURMOMA3 cat wc file2 \n\033[1;0m"
+printf "\033[1;34mSCRIPT TEST IS DONE WITH <<YOURMOMA3 cat wc >file3 \n\033[1;0m"
+printf "\033[1;34mDIFF HAS BEEN DONE ON file2 file3\n\033[1;0m"
+rm -rf YOURMOMA3
+./pipex YOURMOMA3 cat wc file2
+<YOURMOMA3 cat | wc >file3
+diff file2 file3
+printf "\033[1;32mIF NO PRINT FROM DIFF YOU WON\n\n\033[1;0m"
 
 
 # ------------------------------------STD TEST----------------------------------- 
@@ -149,5 +153,5 @@ valgrind --leak-check=full --trace-children=yes ./pipex here_doc LIMITER cat cat
 
 
 make fclean
-rm -rf pipex.dSYM
-
+rm -rf pipex.dSYM here_doc 
+rm -rf YOURMOMA3
