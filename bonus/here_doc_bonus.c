@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   here_doc.c                                         :+:      :+:    :+:   */
+/*   here_doc_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 14:02:12 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/06 11:22:23 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/12 12:11:37 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	run_here_doc(char *limiter, t_files *f)
 	f->here_doc = 1;
 	return (0);
 }
+	//THIS IS ONLY TO  USE WHEN HERE_DOC IS USED 
 	//I COULD HANDLE ALL THE CASES WITH MULTIPLE CMD JUST BY 
 	//AADDING J = 4 and looping while j < argc - something
 	// I should also change the last execute for argv[count -1]
@@ -74,5 +75,26 @@ int	calling_the_execs_bonus(int argc, char **argv, char **env, t_files *f)
 	}
 	execute_out(argv[4], (int [2]){fd, f->outfile},
 		&f->pids[f->process_count - 1], env);
+	return (0);
+}
+
+int	validate_here_doc(int argc, char **argv, t_files *f)
+{
+	char *limiter;
+
+	limiter = ft_strjoin(argv[2], "\n");
+	if (argc != 6)
+	{
+		ft_put_str_error("NOT THE RIGHT AMOUNT OF ARGS FOR HERE DOC\n");
+		free(limiter);
+		return (1);
+	}	
+	if (run_here_doc(limiter, f) == 1)
+	{
+		ft_put_str_error("COULD NOT CREATE FILE FOR HEREDOC\n");
+		free(limiter);
+		return (2);
+	}
+	free(limiter);
 	return (0);
 }

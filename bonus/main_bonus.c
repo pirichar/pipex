@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:04:02 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/07 15:55:08 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/12 12:12:04 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,6 @@ void	wait_for_pids(t_files *f)
 	}
 	close(f->infile);
 	free(f->pids);
-}
-
-int	validate_here_doc(int argc, char **argv, t_files *f)
-{
-	if (argc != 6)
-	{
-		ft_put_str_error("NOT THE RIGHT AMOUNT OF ARGS FOR HERE DOC\n");
-		return (1);
-	}	
-	if (run_here_doc(argv[2], f) == 1)
-	{
-		ft_put_str_error("COULD NOT CREATE FILE FOR HEREDOC\n");
-		return (2);
-	}
-	return (0);
 }
 
 int	main(int argc, char **argv, char **env)

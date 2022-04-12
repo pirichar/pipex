@@ -1,7 +1,20 @@
 #!/bin/bash
 
 # gcc -Wall -Werror -Wextra ./src/*.c ./docs/illegal_functions.c -o pipex
+
+# to check the here_doc BONUS
+# make bonus
+# valgrind --leak-check=full --trace-children=yes ./pipex here_doc LIMITER cat cat file2
+
+# to check the multiple fd bonus 
+# make bonus
+# valgrind --leak-check=full --trace-children=yes ./pipex Makefile cat cat "wc -l" file2
+
+# to check the normal pipex
+# make 
+# valgrind --leak-check=full --trace-children=yes ./pipex Makefile cat cat file2
 make re
+echo THIS IS A TEST FILE > file1
 
 
 # ------------------------------------ERRORS----------------------------------- 
@@ -113,6 +126,28 @@ wc -l here_doc
 
 
 
+# ------------------------------------VALGRIND PART----------------------------------- 
+printf "\033[1;32m----------------------------VALGRIND PART----------------------------\n\n\n\033[1;0m"
+printf "\033[1;34m--------------SCRIPT TESTING THE STANDARD PIPEX--------------\n\033[1;0m"
+printf "\033[1;34m THE COMMAND IS : valgrind --leak-check=full --trace-children=yes ./pipex Makefile cat cat file2 \n\033[1;0m"
+make fclean
+make
+valgrind --leak-check=full --trace-children=yes ./pipex Makefile cat cat file2
+
+printf "\033[1;34m--------------SCRIPT TESTING THE MULTIPLE FD BONUS--------------\n\033[1;0m"
+printf "\033[1;34m THE COMMAND IS : valgrind --leak-check=full --trace-children=yes ./pipex Makefile cat cat \"wc -l\" file2 \n\033[1;0m"
+make fclean
+make bonus
+valgrind --leak-check=full --trace-children=yes ./pipex Makefile cat cat "wc -l" file2
 
 
+printf "\033[1;34m--------------SCRIPT TESTING THE BONUS WITH HEREDOC--------------\n\033[1;0m"
+printf "\033[1;34m THE COMMAND IS : valgrind --leak-check=full --trace-children=yes ./pipex here_doc LIMITER cat cat file2 \n\033[1;0m"
+make fclean
+make bonus
+valgrind --leak-check=full --trace-children=yes ./pipex here_doc LIMITER cat cat file2
+
+
+make fclean
+rm -rf pipex.dSYM
 
