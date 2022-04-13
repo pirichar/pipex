@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 14:58:15 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/02 14:04:10 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/13 10:22:50 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,22 @@ int	execute(const char *cmd, int fd_in, int *p, char **env)
 	int	pid;
 
 	pipe(pipes);
-	pid = fork();
-	if (pid == 0)
+	if (fd_in != -1)
 	{
-		dup2(fd_in, 0);
-		close(fd_in);
-		dup2(pipes[1], 1);
-		close(pipes[1]);
-		parse_and_exec_cmd(cmd, env);
+		pid = fork();
+		if (pid == 0)
+		{
+			dup2(fd_in, 0);
+			close(fd_in);
+			dup2(pipes[1], 1);
+			close(pipes[1]);
+			parse_and_exec_cmd(cmd, env);
+		}
 	}
 	close(fd_in);
 	close(pipes[1]);
-	*p = pid;
+	if (fd_in != -1)
+		*p = pid;
 	return (pipes[0]);
 }
 

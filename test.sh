@@ -61,10 +61,12 @@ printf "\033[1;33m--------------RUNNING THE TEST WITH A FACTIS INPUT FILE-------
 printf "\033[1;34mSCRIPT TEST IS DONE WITH ./pipex YOURMOMA3 cat wc file2 \n\033[1;0m"
 printf "\033[1;34mSCRIPT TEST IS DONE WITH <<YOURMOMA3 cat wc >file3 \n\033[1;0m"
 printf "\033[1;34mDIFF HAS BEEN DONE ON file2 file3\n\033[1;0m"
+rm -rf OUTFILE
 rm -rf YOURMOMA3
-./pipex YOURMOMA3 cat wc file2
+./pipex YOURMOMA3 cat wc OUTFILE
 <YOURMOMA3 cat | wc >file3
-diff file2 file3
+diff OUTFILE file3
+rm -rf OUTFILE
 printf "\033[1;32mIF NO PRINT FROM DIFF YOU WON\n\n\033[1;0m"
 
 
@@ -101,15 +103,42 @@ printf "\033[1;34mDIFF HAS BEEN DONE ON file2 file3\n\033[1;0m"
 diff file2 file3 
 printf "\033[1;32mIF THE COMMANDS WORKED NO WHITE ON PROMPT YOU WON\n\n\033[1;0m"
 
+
+
+
+
+
+
+
 make fclean
 make bonus
 printf "\033[1;32m----------------------------BONUS TEST----------------------------\n\033[1;0m"
-printf "\033[1;33m--------------RUNNING THE TEST FOR CAT GREP a1 WC -l --------------\n\033[1;0m"
+printf "\033[1;33m--------------RUNNING THE TEST FOR NO INPUT FILE --------------\n\033[1;0m"
+printf "\033[1;34mSCRIPT TEST IS DONE WITH ./pipex file1 \"cat\" \"grep a1\" \"wc -l\" file2 \n\033[1;0m"
+printf "\033[1;34mSCRIPT TEST IS DONE WITH <file1 cat | grep a1 | wc -l >file3 \n\033[1;0m"
+printf "\033[1;34mDIFF HAS BEEN DONE ON file2 file3\n\033[1;0m"
+rm -rf OUTFILE1 OUTFILE2 
+./pipex OKBYEMANON "cat" "grep a1" "wc -l" OUTFILE1
+<OKBYEMANON cat | grep a1 | wc -l >OUTFILE2
+diff OUTFILE1 OUTFILE2
+rm -rf OUTFILE1 OUTFILE2 
+printf "\033[1;32mIF THE COMMANDS WORKED NO WHITE ON PROMPT YOU WON\n\n\033[1;0m"
+
+printf "\033[1;33m--------------RUNNING THE TEST FOR 3 COMMANDS --------------\n\033[1;0m"
 printf "\033[1;34mSCRIPT TEST IS DONE WITH ./pipex file1 \"cat\" \"grep a1\" \"wc -l\" file2 \n\033[1;0m"
 printf "\033[1;34mSCRIPT TEST IS DONE WITH <file1 cat | grep a1 | wc -l >file3 \n\033[1;0m"
 printf "\033[1;34mDIFF HAS BEEN DONE ON file2 file3\n\033[1;0m"
 ./pipex file1 "cat" "grep a1" "wc -l" file2
 <file1 cat | grep a1 | wc -l >file3
+diff file2 file3 
+printf "\033[1;32mIF THE COMMANDS WORKED NO WHITE ON PROMPT YOU WON\n\n\033[1;0m"
+
+printf "\033[1;33m--------------RUNNING THE TEST FOR 4 COMMANDS --------------\n\033[1;0m"
+printf "\033[1;34mSCRIPT TEST IS DONE WITH ./pipex file1 \"cat\"\"cat\" \"grep a1\" \"wc -l\" file2 \n\033[1;0m"
+printf "\033[1;34mSCRIPT TEST IS DONE WITH <file1 cat | grep a1 | wc -l >file3 \n\033[1;0m"
+printf "\033[1;34mDIFF HAS BEEN DONE ON file2 file3\n\033[1;0m"
+./pipex file1 "cat" "cat" "grep a1" "wc -l" file2
+<file1 cat | cat | grep a1 | wc -l >file3
 diff file2 file3 
 printf "\033[1;32mIF THE COMMANDS WORKED NO WHITE ON PROMPT YOU WON\n\n\033[1;0m"
 
@@ -122,6 +151,7 @@ printf "\033[1;34mSCRIPT TEST IS DONE WITH ./pipex here_doc LIMITER "wc -l" file
 printf "\033[1;33m--------------RUNNING FOR HERE_DOC--------------\n\033[1;0m"
 printf "\033[1;34mSCRIPT TEST IS DONE WITH ./pipex here_doc LIMITER cat wc-l file2  \n\033[1;0m"
 ./pipex here_doc LIMITER "cat" "wc -l" file2
+
 printf "\033[1;34mTHIS IS WHAT IS IN FILE 2\n\033[1;0m"
 cat file2
 printf "\033[1;34mIT SHOULD BE THE SAME AS THE FOLLOWING WHICH IS wc -l of here_doc\n\033[1;0m"
