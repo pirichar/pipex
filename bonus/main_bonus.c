@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:04:02 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/13 10:28:35 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/14 15:08:48 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	init_process(int argc, char **argv, t_files *f)
 		if (f->infile == -1)
 		{
 			ft_put_str_error("Could not open input file\n");
-			// free (f->pids);
 			return (1);
 		}
 	}

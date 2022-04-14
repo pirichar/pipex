@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 12:47:29 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/12 15:21:30 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/14 15:09:48 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,4 @@ int				calling_the_execs_bonus(int argc, char **argv, char **env,
 int				run_here_doc(char *limiter, t_files *f);
 int				validate_here_doc(int argc, char **argv, t_files *f);
 
-
-// int				calling_the_execs_neg_fd(int argc, char **argv, char **env, t_files *f);
 #endif

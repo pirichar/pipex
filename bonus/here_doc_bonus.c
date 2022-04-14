@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 14:02:12 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/13 10:33:50 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/14 15:09:11 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	calling_the_execs_bonus(int argc, char **argv, char **env, t_files *f)
 
 int	validate_here_doc(int argc, char **argv, t_files *f)
 {
-	char *limiter;
+	char	*limiter;
 
 	limiter = ft_strjoin(argv[2], "\n");
 	if (argc != 6)

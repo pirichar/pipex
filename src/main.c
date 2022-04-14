@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:04:02 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/12 15:43:44 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/14 15:10:43 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ int	init_process(int argc, char **argv, t_files *f)
 	if (f->infile == -1)
 	{
 		ft_put_str_error("Could not open input file\n");
-		// f->infile = open(argv[1], O_RDONLY | O_CREAT);
-		// free (f->pids);
 		return (1);
 	}
 	return (0);
@@ -52,11 +50,7 @@ int	main(int argc, char **argv, char **env)
 			ft_put_str_error("ERROR INPUT IS THE SAME AS OUTPUT\n");
 			return (4);
 		}
-		if (init_process(argc, argv, &f) == 1)
-		{
-			// if(calling_the_execs_neg_fd(argc, argv, env, &f) == 1)
-			// 	return (2);
-		}
+		init_process(argc, argv, &f);
 		if (calling_the_execs(argc, argv, env, &f) == 1)
 			return (3);
 		wait_for_pids(&f);
