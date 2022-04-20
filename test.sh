@@ -56,10 +56,10 @@ printf "\033[1;34mDIFF HAS BEEN DONE ON file2 file3\n\033[1;0m"
 <file1 wc | lass >file3
 diff file2 file3 
 
-printf "\033[1;33m--------------RUNNING THE TEST WITH A FACTIS INPUT FILE--------------\n\033[1;0m"
+printf "\033[1;33m--------------RUNNING THE TEST WITH A NON EXISTING INPUT FILE--------------\n\033[1;0m"
 # printf "\033[1;31m--------------SHOULD BE AN ERROR--------------\n\033[1;33m"
 printf "\033[1;34mSCRIPT TEST IS DONE WITH ./pipex YOURMOMA3 cat wc file2 \n\033[1;0m"
-printf "\033[1;34mSCRIPT TEST IS DONE WITH <<YOURMOMA3 cat wc >file3 \n\033[1;0m"
+printf "\033[1;34mSCRIPT TEST IS DONE WITH <YOURMOMA3 cat | wc >file3 \n\033[1;0m"
 printf "\033[1;34mDIFF HAS BEEN DONE ON file2 file3\n\033[1;0m"
 rm -rf OUTFILE
 rm -rf YOURMOMA3
@@ -71,7 +71,7 @@ printf "\033[1;32mIF NO PRINT FROM DIFF YOU WON\n\n\033[1;0m"
 
 
 # ------------------------------------STD TEST----------------------------------- 
-printf "\033[1;32m----------------------------STD TEST----------------------------\n\033[1;0m"
+printf "\n\n\n\n\033[1;32m----------------------------STD TEST----------------------------\n\033[1;0m"
 
 
 printf "\n\033[1;33m--------------RUNNING THE TEST WITH A FACTIS OUTPUT FILE--------------\n\033[1;0m"
@@ -101,7 +101,7 @@ printf "\033[1;34mDIFF HAS BEEN DONE ON file2 file3\n\033[1;0m"
 ./pipex file1 "ls -l" "wc -l" file2
 <file1 ls -l | wc -l >file3
 diff file2 file3 
-printf "\033[1;32mIF THE COMMANDS WORKED NO WHITE ON PROMPT YOU WON\n\n\033[1;0m"
+printf "\033[1;32mIF THE COMMANDS WORKED NO WHITE ON PROMPT YOU WON\n\n\n\n\n\n\033[1;0m"
 
 
 
