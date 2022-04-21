@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 12:47:29 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/14 15:09:48 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/21 10:34:51 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ typedef struct s_ptrs
 	char	**cmd_split;
 }				t_exec_ptrs;
 
-bool			search_argv1(const char *p_arr, const char *argv1);
-char			**path_to_strarr(char **param);
+bool			search_path(const char *p_arr, const char *cmd);
+char			**path_to_strarr(char **env);
 char			**ft_split(const char *s, char c);
 char			*ft_strjoin(const char *s1, const char *s2);
 void			print_strarr(char **str);

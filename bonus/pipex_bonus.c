@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 14:58:15 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/13 10:22:50 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/21 10:36:39 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	parse_and_exec_cmd(const char *cmd, char **env)
 	i = 0;
 	while (p.path[i])
 	{
-		if (search_argv1(p.path[i], p.cmd_split[0]) == true)
+		if (search_path(p.path[i], p.cmd_split[0]) == true)
 		{
 			p.final_cmd = split_cmd(p.path[i], p.cmd_with_slash);
 			execve(p.final_cmd[0], p.final_cmd, env);

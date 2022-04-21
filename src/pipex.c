@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 14:58:15 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/14 15:11:29 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/21 10:36:37 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,24 @@ char	**split_cmd(const char *path, const char *cmd)
 	return (rtn);
 }
 
+/*
+	parse and exec CMD taks as input the command
+	It also takes as input the environment variable
+	First it ill get the path within the env variable and put it in a 2d array
+	Then it will add a slash to the cmd so 
+	it can look at the end of each line of the 2d array
+	It will then loop trough all the element of the path line by line 
+	It will look with s_argv1 using access if 
+	the command is accessible with any of the proved path
+	CASE A:
+		If it is iit will split the command to 
+		create the final vector wanted by execve
+		Run EXECVE and add an exit for safety if anything goes wrong
+	BASE B:
+		It will display an error message an says that 
+		command is not found and free everything	
+*/
+
 void	parse_and_exec_cmd(const char *cmd, char **env)
 {
 	int			i;
@@ -34,7 +52,7 @@ void	parse_and_exec_cmd(const char *cmd, char **env)
 	i = 0;
 	while (p.path[i])
 	{
-		if (search_argv1(p.path[i], p.cmd_split[0]) == true)
+		if (search_path(p.path[i], p.cmd_split[0]) == true)
 		{
 			p.final_cmd = split_cmd(p.path[i], p.cmd_with_slash);
 			execve(p.final_cmd[0], p.final_cmd, env);
@@ -48,6 +66,37 @@ void	parse_and_exec_cmd(const char *cmd, char **env)
 	free (p.cmd_with_slash);
 	exit(1);
 }
+
+/*
+	Execute take as input the CMD to execute
+	It will at first create a pipe for each command
+	The second input is the fd for its input
+	The third input is a pointer to an array of PIDS 
+	(the user passes the right section of the array)
+	The last intput is the environement we gather 
+	from the main function and that we
+	use to call our command
+
+	CASE A:
+		If the fd_in is -1 execute will close the fd_in
+		It will then close the write part of the pipe
+		 without writing anything in it
+		Then it will return the empty reading part of the pipe
+	CASE B:
+		if the fd is other then -1 (is valid) execute will fork
+
+		The child process will then dup the passed fd_in into stdin and close fd_in
+		Then the process will dup the writing part of the pipe 
+		into the stdin then close the pipe[1]
+		Finally its gonna call parse and exec cmd which 
+		will result in killing the process if it can run the command
+		Otherwise we run exit(1) after to be sure everything is exited correctly
+
+		The main process will just close the fd_in
+		It will also close the writing part of the pipe
+		Finally it will give to the passed 
+
+*/
 
 int	execute(const char *cmd, int fd_in, int *p, char **env)
 {
@@ -75,6 +124,10 @@ int	execute(const char *cmd, int fd_in, int *p, char **env)
 	return (pipes[0]);
 }
 
+/*
+	Execute out function was created to respect the limit of inputs
+	I was using only execute at first and had to switch it around
+*/
 void	execute_out(const char *cmd, int fds[2], int *p, char **env)
 {
 	int	pid;

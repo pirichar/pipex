@@ -6,13 +6,18 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:04:02 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/14 15:10:43 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/21 10:36:46 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-int	init_process(int argc, char **argv, t_files *f)
+/*
+	Takes as input argument count, argument vector and a pointer to the struct f
+	it will init the process count;  malloc the array for the process 
+	Finally it will take care of opening the infile passed in argv1
+*/
+static void	init_process(int argc, char **argv, t_files *f)
 {
 	f->process_count = (argc - 4);
 	f->pids = malloc(sizeof(int) * f->process_count);
@@ -20,12 +25,13 @@ int	init_process(int argc, char **argv, t_files *f)
 	if (f->infile == -1)
 	{
 		ft_put_str_error("Could not open input file\n");
-		return (1);
 	}
-	return (0);
 }
 
-void	wait_for_pids(t_files *f)
+/*
+	Simple function that wait for all the pids to be done in the main
+*/
+static void	wait_for_pids(t_files *f)
 {
 	int	i;
 
@@ -39,17 +45,19 @@ void	wait_for_pids(t_files *f)
 	free(f->pids);
 }
 
+/*
+	My main function will :
+	Init the structure needed for the processing
+	Call the execs and return and error if it cant open the output file
+	Wait for the pids 
+	If you don't pass the proper amount of args it wont work
+*/
 int	main(int argc, char **argv, char **env)
 {
 	t_files	f;
 
 	if (argc == 5)
 	{
-		if (ft_strncmp(argv[1], argv[argc -1], 20) == 0)
-		{
-			ft_put_str_error("ERROR INPUT IS THE SAME AS OUTPUT\n");
-			return (4);
-		}
 		init_process(argc, argv, &f);
 		if (calling_the_execs(argc, argv, env, &f) == 1)
 			return (3);

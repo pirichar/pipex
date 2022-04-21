@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environement.c                                     :+:      :+:    :+:   */
+/*   environement_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:13:03 by pirichar          #+#    #+#             */
-/*   Updated: 2022/03/28 12:59:19 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/21 10:35:43 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ char	**path_to_strarr(char **param)
 	return (p_arr);
 }
 
-bool	search_argv1(const char *p_arr, const char *argv1)
+bool	search_path(const char *p_arr, const char *cmd)
 {
 	char	*line;
 	char	*with_slash;
 
-	with_slash = ft_strjoin("/", argv1);
+	with_slash = ft_strjoin("/", cmd);
 	line = ft_strjoin(p_arr, with_slash);
 	if (access(line, X_OK) == 0)
 	{
