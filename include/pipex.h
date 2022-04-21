@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 12:47:29 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/21 10:34:51 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/21 11:13:44 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int				execute(const char *cmd, int fd_in, int *p, char **env);
 void			parse_and_exec_cmd(const char *cmd, char **env);
 char			**split_cmd(const char *path, const char *cmd);
 
-//here doc
+//here doc and Bonus
 int				calling_the_execs_bonus(int argc, char **argv, char **env,
 					t_files *f);
 int				run_here_doc(char *limiter, t_files *f);
