@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:32:27 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/21 13:02:24 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/25 12:57:25 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ char	*get_next_line(int fd)
 	saved[fd] = read_file(fd, saved[fd], &new_line);
 	if (saved[fd] == NULL)
 		return (NULL);
-	//le problème semble venir d'ici for sure
 	if (new_line)
 	{
 		rtn = ft_substr(saved[fd], 0, (new_line - saved[fd] + 1));
@@ -66,6 +65,7 @@ char	*get_next_line(int fd)
 	}
 	return (rtn);
 }
+
 /*
 	Free_stuff va prendre le saved et prendre ce qu'il reste après le new_line
 	Je pars de new_line qui pointe au new line
@@ -74,11 +74,17 @@ char	*get_next_line(int fd)
 	Finalemnent je coupe la phrase pour la longueur de mon new line
 	
 */
+
 char	*free_stuff(char *saved, char *new_line)
 {
 	char	*tmp;
 
 	tmp = ft_substr(new_line, 1, ft_strlen(new_line));
+	if (!*tmp)
+	{
+		free(tmp);
+		tmp = NULL;
+	}
 	free(saved);
 	saved = tmp;
 	return (saved);
