@@ -6,7 +6,7 @@
 /*   By: pirichar <pirichar@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:04:02 by pirichar          #+#    #+#             */
-/*   Updated: 2022/04/21 10:38:44 by pirichar         ###   ########.fr       */
+/*   Updated: 2022/04/27 14:06:45 by pirichar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 */
 static void	init_process(int argc, char **argv, t_files *f)
 {
-	f->process_count = (argc - 4);
+	f->process_count = (argc - 3);
 	f->pids = malloc(sizeof(int) * f->process_count);
 	f->infile = open(argv[1], O_RDONLY);
 	if (f->infile == -1)
